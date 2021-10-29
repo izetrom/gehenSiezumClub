@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var users = new Map();
-var Response = require('../bin/response.js').Response;
+var Response = require('../object/response.js').Response;
 
 router.post('/login', function (req, res, next)
 {
@@ -17,18 +17,25 @@ router.post('/register', function (req, res, next)
 
 function register(req)
 {
-    if (users.get(req.body.username) != undefined)
+    var username = req.body.username;
+    var password = req.body.password;
+
+    if (username == undefined || password == undefined)
+        return new Response(403, "username or password is empty");
+    if (users.get(username) != undefined)
         return new Response(401, "This user already exist");
     else
-    {
-        users.set(req.body.username, req.body.password);
-        return new Response(200, "User " + req.body.username + " well created");
-    }
+        users.set(username, password);
+    return new Response(200, "User " + username + " well created");
 }
 
 function login(req)
 {
-    
+    var username = users.get(req.body.username);
+    var password = users.get(req.body.password);
+
+    if (username == undefined || password == undefined)
+        return new Response(403, "username or password is empty");
     if (users.get(req.body.username) == req.body.password)
         return new Response(200, "You are now connected");
     else
