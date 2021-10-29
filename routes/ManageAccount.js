@@ -6,7 +6,6 @@ var Response = require('../bin/response.js').Response;
 router.post('/login', function (req, res, next)
 {
     let response = login(req);
-    res.status = response.status;
     res.status(response.status).json(response.body);
 });
 
@@ -29,6 +28,7 @@ function register(req)
 
 function login(req)
 {
+    
     if (users.get(req.body.username) == req.body.password)
         return new Response(200, "You are now connected");
     else
