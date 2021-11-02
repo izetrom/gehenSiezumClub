@@ -32,7 +32,7 @@ function register(req)
 function login(req)
 {
     console.log(req);
-    var username = users.get(req.body.username);
+    var username = users.get(req.body.body.username);
     var password = users.get(req.body.password);
     console.log("username : " + username + " password : " + password);
     if (username == undefined || password == undefined)
