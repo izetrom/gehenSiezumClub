@@ -32,12 +32,12 @@ function register(req)
 function login(req)
 {
     console.log(req);
-    var username = users.get(req.body.body.username);
-    var password = users.get(req.body.password);
+    var username = req.body.username;
+    var password = req.body.password;
     console.log("username : " + username + " password : " + password);
     if (username == undefined || password == undefined)
         return new Response(403, "username or password is empty");
-    if (users.get(req.body.username) == req.body.password)
+    if (users.get(username) == password)
         return new Response(200, "You are now connected");
     else
         return new Response(401, "The username and password doesn't match");
