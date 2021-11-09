@@ -34,7 +34,6 @@ function login(req)
     console.log(req);
     var username = req.body.username;
     var password = req.body.password;
-    console.log("username : " + username + " password : " + password);
     if (username == undefined || password == undefined)
         return new Response(403, "username or password is empty");
     if (users.get(username) == password)
